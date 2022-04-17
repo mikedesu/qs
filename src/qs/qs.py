@@ -12,7 +12,7 @@ def read_urls(filename):
 
 def usage(a):
     if len(a)!=3:
-        print("Usage: python3 querysplit.py <url_filename> <custom_value>")
+        print("Usage: python3 qs.py <url_filename> <custom_value>")
 
 
 def process_url(new_url_base, param_vals, my_new_val):
@@ -45,13 +45,4 @@ def process_urls(urls, my_new_val):
             process_url(new_url_base, param_vals, my_new_val)
 
 
-def main():
-    usage(argv)
-    urls = read_urls(argv[1])
-    my_new_val = argv[2]
-    process_urls(urls, my_new_val)
-    
-
-if __name__ == '__main__':
-    main()
 
