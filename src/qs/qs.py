@@ -10,9 +10,24 @@ def read_urls(filename):
     return urls
 
 
+def read_urls_input():
+    urls = []
+    try:
+        while True:
+            url = input()
+            if url[-1] == '\n':
+                url = url[:-1]
+            urls.append(url)
+    except EOFError:
+        pass
+    return urls
+
+
 def usage(a):
-    if len(a)!=3:
-        print("Usage: python3 qs.py <url_filename> <custom_value>")
+    if len(a)!=2 and len(a)!=3:
+        print("Usage: ")
+        print("\tcat somefile.txt | python3 qs.py <custom_value>")
+        print("\tpython3 qs.py <url_filename> <custom_value>")
 
 
 def process_url(new_url_base, param_vals, my_new_val):
@@ -20,6 +35,7 @@ def process_url(new_url_base, param_vals, my_new_val):
         pv = param_vals.pop(i)
         pv_split = pv.split("=")
         if len(pv_split)==1:
+            param_vals.insert(i, pv)
             continue
         param = pv_split[0]
         new_pv = param + "=" + my_new_val
@@ -36,13 +52,12 @@ def process_urls(urls, my_new_val):
         url = urls.pop()
         url = url[:-1]
         url_split = url.split("?")
-        if len(url_split)>1:
+        if len(url_split) > 1:
             url_base = url_split[0]
             query_str = url_split[1]
             param_vals = query_str.split("&")
             len_param_vals = len(param_vals)
             new_url_base = url_base + "?"
             process_url(new_url_base, param_vals, my_new_val)
-
 
 
