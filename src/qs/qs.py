@@ -14,10 +14,13 @@ def read_urls_input():
     urls = []
     try:
         while True:
-            url = input()
-            if url[-1] == '\n':
-                url = url[:-1]
-            urls.append(url)
+            url = input().strip()
+            # we only want to add URLs
+            # for now, we will only omit empty strings
+            if len(url) > 0:
+                # we will also only add strings containing both a '?' and a '='
+                if url.find("?") > -1 and url.find("=") > -1:
+                    urls.append(url)
     except EOFError:
         pass
     return urls
